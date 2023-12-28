@@ -1,0 +1,46 @@
+#
+#   python_data_science_covid_v2.py
+#
+#   Lee los datos de un repositorio, extrae los casos confirmados de COVID de Michoacán y Guanajuato y los grafica
+#   Nota: El nombre del archivo en el repositorio (10-27-2020.csv) nos indica la fecha de la actualización de los casos
+#
+#   Rogelio Ferreira Escutia - octubre 2020
+#
+
+# Importando la biblioteca de pandas para el manejo de datos
+import pandas as pd
+
+# Importanto matplotlib para graficar
+import matplotlib.pyplot as plt
+
+# Leer el repositorio
+datos_covid = pd.read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/10-27-2020.csv")
+
+# Extraemos los datos de Michoacán
+consulta_michoacan = datos_covid[datos_covid['Province_State']=='Michoacan']
+
+# Imprimimos la información de Michoacán
+print('\nDatos de Michoacán: \n'+ str(consulta_michoacan))
+
+# Extraemos los datos confirmados para Michoacán
+casos_confirmados_michoacan = int(consulta_michoacan['Confirmed'])
+
+# Imprimimos los datos confirmados de Covid de Michoacán
+print('\nCasos Confirmados en Michoacán: '+ str(casos_confirmados_michoacan))
+
+# Extraemos los datos confirmados para Guanajuato
+consulta_guanajuato = datos_covid[datos_covid['Province_State']=='Guanajuato']
+casos_confirmados_guanajuato = int(consulta_guanajuato['Confirmed'])
+print('\nCasos Confirmados en Guanajuato: '+ str(casos_confirmados_guanajuato))
+
+# Creamos una lista para indicar las etiquetas de los estados
+estados = ['Michoacán', 'Guanajuato']
+
+# Creamos una lista para indicar los datos que se van a graficar
+casos_confirmados_por_estado = [casos_confirmados_michoacan, casos_confirmados_guanajuato]
+
+# Creamos la gráfica de barras indicando lo que se grafica en X y en Y
+plt.bar(estados, casos_confirmados_por_estado)
+
+# Mostramos la gráfica en pantalla
+plt.show()
